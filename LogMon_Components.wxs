@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" 
+xmlns:util="http://schemas.microsoft.com/wix/UtilExtension">
+	<Fragment Id="Components">
+
+		<DirectoryRef Id="INSTALLDIR">
+			<Component Id="Exe.LogMon" Guid="{577ABE57-A473-C5A2-41E7-AD4A8BF39C32}">
+				<File Id="LogMon.exe" Name="LogMon.exe" Source="LogMon.exe" Vital="yes" KeyPath="yes">
+					  <Shortcut Id="startmenuLogmonExe" Directory="ProgramMenuDir" Name="LogMon" WorkingDirectory="INSTALLDIR" Advertise="yes"></Shortcut>
+				</File>
+			</Component>
+			<Component Id="Config.LogMon" Guid="{A1984DB6-0ACC-0098-40D7-949B2BC72310}">
+				<File Id="LogMon.exe.config" Name="LogMon.exe.config" Source="LogMon.exe.config" Vital="yes" KeyPath="yes" />
+			</Component>
+			<!--
+			<Component Id="Config.log4net" Guid="{E27B15A5-58C6-518D-491F-71AC9133A838}">
+				<File Id="log4net.config" Name="log4net.config" Source="log4net.config" Vital="yes" KeyPath="yes" />
+			</Component>-->
+		</DirectoryRef>
+	
+		<DirectoryRef Id="ProgramMenuDir">
+		  <Component Id="LogMon.ProgramMenuDir" Guid="70A47EB1-1928-4881-4694-DE35627AF561">
+			<RemoveFolder Id="ProgramMenuDir" On="uninstall" />
+			<RegistryValue Root="HKCU" Key="Software\InsidiousEmpire\Logmon" Type="string" Value="" KeyPath="yes" />
+		  </Component>
+		</DirectoryRef>
+		
+		<DirectoryRef Id="LogDir">
+		  <Component Id="LogMon.Logdir" Guid="{5AD2AC90-E235-FA97-44C6-090A48A776A7}">
+			<CreateFolder Directory="LogDir">
+				<util:PermissionEx User="Users" GenericAll="yes" />
+			</CreateFolder>
+		  </Component>
+		</DirectoryRef>
+
+		
+		<ComponentGroup Id="LogMonFiles">
+			<ComponentRef Id="Exe.LogMon" />
+			<ComponentRef Id="Config.LogMon" />
+			<ComponentRef Id="LogMon.ProgramMenuDir" />
+			<ComponentRef Id="LogMon.Logdir" />
+		</ComponentGroup>
+	</Fragment>
+</Wix>

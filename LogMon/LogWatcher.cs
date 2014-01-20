@@ -36,8 +36,10 @@ namespace LogMon
 
 		void SetWatchDir(string dir, string filter)
 		{
+
 			if (dir == null)
 				dir = Path.GetDirectoryName(Application.ExecutablePath);
+            dir = Environment.ExpandEnvironmentVariables(dir);
 			DirWatch = new FileSystemWatcher(dir);
 			DirWatch.IncludeSubdirectories = false;
 			DirWatch.InternalBufferSize *= 2;//larger buffer cause people don't clean their logs folder

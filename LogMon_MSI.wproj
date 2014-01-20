@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
+	<PropertyGroup>
+		<MSIProductVersion Condition=" '$(MSIProductVersion)' == '' ">1.0.0</MSIProductVersion>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>3.0</ProductVersion>
+    <ProjectGuid>{77FB0881-1FCC-6F95-4AEC-3878F3C6CF14}</ProjectGuid>
+    <SchemaVersion>2.0</SchemaVersion>
+    <OutputName>LogMon_$(MSIProductVersion)</OutputName>
+    <OutputType>Package</OutputType>
+    <WixTargetsPath Condition=" '$(WixTargetsPath)' == '' ">$(MSBuildExtensionsPath)\Microsoft\WiX\v3.x\Wix.targets</WixTargetsPath>
+    <PackageRoot Condition=" '$(PackageRoot)' == '' ">$(MSBuildProjectDirectory)\Package\</PackageRoot>
+    <BaseInputPaths>$(PackageRoot)</BaseInputPaths>
+    <DefineSolutionProperties>False</DefineSolutionProperties>
+    
+    <WixToolPath Condition=" '$(WixToolPath)' == ''">$(Registry:HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows Installer XML\3.7@InstallRoot)</WixToolPath>
+    <WixToolPath Condition=" '$(WixToolPath)' == ''">$(Registry:HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Microsoft\Windows Installer XML\3.7@InstallRoot)</WixToolPath>
+
+    <IncludeDocco Condition=" '$(IncludeDocco)' == ''">false</IncludeDocco>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OutputPath>$(OutputPath)</OutputPath>
+    <IntermediateOutputPath>$(OutputPath)obj\</IntermediateOutputPath>
+    <DefineConstants>Debug;ProductVersion=$(MSIProductVersion);includeDocco=$(IncludeDocco);</DefineConstants>
+  </PropertyGroup>
+  <ItemGroup>
+    
+    <Compile Include="LogMon.wxs" />
+    <Compile Include="LogMon_FolderStructure.wxs" />
+    <Compile Include="LogMon_Components.wxs" />
+	
+	<!--
+    <Compile Include="IceLib.wxs" />
+    <Compile Include="Infragistics.9.2.wxs" />-->
+    <WixExtension Include="$(WixToolPath)bin\WixUIExtension.dll" />
+    <WixExtension Include="$(WixToolPath)bin\WixNetFxExtension.dll" />
+	<WixExtension Include="$(WixToolPath)bin\WixUtilExtension.dll" />
+  </ItemGroup>
+  
+  <Import Project="$(WixTargetsPath)" />
+</Project>

@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="CompletePackage">
+	<PropertyGroup>
+		<MSIProductVersion Condition=" '$(MSIProductVersion)' == '' ">1.0.0</MSIProductVersion>		
+    <SolutionFilePath>.\LogMon.sln</SolutionFilePath>
+    <PackageRoot Condition=" '$(OutDir)' == '' ">$(MSBuildProjectDirectory)\Build\</PackageRoot>
+    <PackageRoot Condition=" '$(OutDir)' != '' ">$(OutDir)\</PackageRoot>
+    <IncludeDocco>false</IncludeDocco>
+  </PropertyGroup>
+  <ItemGroup>
+    <SolutionFiles Include="$(SolutionFilePath)" />
+    <!-- <FilesToCopyToPackageDir Include="log4net.config" /> -->
+  </ItemGroup>
+
+  <PropertyGroup>
+    <SlnBuildParams>Configuration=Release;Platform=Any CPU;OutputPath=$(PackageRoot)</SlnBuildParams>
+
+  </PropertyGroup>
+  <Target Name="Clean">
+    <MSBuild Projects="@(SolutionFiles)" Properties="$(SlnBuildParams)" Targets="Clean" />
+  </Target>
+  
+  <Target Name="Build">
+	  <MSBuild Projects="@(SolutionFiles)" Properties="$(SlnBuildParams)" Targets="Build" />
+	  <!--
+    <Copy SourceFiles="@(FilesToCopyToPackageDir)" DestinationFolder="$(PackageRoot)" />
+    <Copy SourceFiles="@(DllsForPackage)" DestinationFolder="$(PackageRoot)\Dlls\$(RecursiveDir)" />-->
+  </Target>
+
+
+  <Target Name="Rebuild" DependsOnTargets="Clean;Build" />
+  
+  <Target Name="Package" DependsOnTargets="Rebuild;MakePackage">
+    <!--<MSBuild Projects="LogMon_MSI.wproj" Properties="PackageRoot=$(PackageRoot);$(SlnBuildParams)">
+    </MSBuild> -->
+  </Target>
+
+  <Target Name="MakePackage">
+    <MSBuild Projects="LogMon_MSI.wproj" Properties="MSIProductVersion=$(MSIProductVersion);PackageRoot=$(PackageRoot);$(SlnBuildParams);IncludeDocco=$(IncludeDocco)" Targets="Rebuild">
+    </MSBuild>
+  </Target>
+
+  <Target Name="CompletePackage" DependsOnTargets="Rebuild;Package" >
+  </Target>
+</Project>
+ 

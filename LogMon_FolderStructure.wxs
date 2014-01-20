@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <Fragment Id="FolderStructure">
+
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="ProgramFilesFolder" Name="PFiles" DiskId="1">
+        <Directory Id="InsidiousEmpire" Name="Insidious Empire">
+          <Directory Id="INSTALLDIR" Name="LogMon">
+			<Directory Id="LogDir" Name="logs" />
+          </Directory>
+        </Directory>
+      </Directory>
+
+      <Directory Id="WindowsFolder">
+        <Directory Id="AssemblyFolder" />
+      </Directory>
+	  
+      <Directory Id="ProgramMenuFolder" Name="Programs">
+        <Directory Id="ProgramMenuDir" Name="LogMon" />
+      </Directory>
+
+    </Directory>
+
+  </Fragment>
+</Wix>

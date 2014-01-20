@@ -41,7 +41,7 @@ namespace LogMon
 		private void LogForm_Load(object sender, EventArgs e)
 		{
 			//need to get chat channel list from server to initialize watcher correctly
-			m_watcher = new LogWatcher(null, "*.txt", ChatLabels.ToArray());
+            m_watcher = new LogWatcher(@"%USERPROFILE%\documents\eve\logs\Chatlogs", "*.txt", ChatLabels.ToArray());
 #if DEBUG
 			//m_watcher = new LogWatcher(@"C:\Users\Mikker\Documents\GitHub\Warps\Warps\bin\Debug\Logs", "*.log");
 			//m_watcher = new LogWatcher(@"C:\Users\Mikker\Documents\EVE\logs\Chatlogs", "*.txt", ChatLabels.ToArray());
