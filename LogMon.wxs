@@ -54,5 +54,9 @@
     </InstallExecuteSequence>
 
     <UIRef Id="WixUI_Mondo" />
+	
+	
+	<WixVariable Id="WixUIBannerBmp" Value="InstallerResources\UiBanner.bmp" />
+	<WixVariable Id="WixUIDialogBmp" Value="InstallerResources\OpeningUiBackground.bmp" />
   </Product>
 </Wix>
