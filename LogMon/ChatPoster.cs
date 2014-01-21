@@ -196,7 +196,7 @@ namespace LogMon
 		internal static List<string> ReadLabels(string php)
 		{
 			var sslFailureCallback = new RemoteCertificateValidationCallback(delegate { return true; });
-			List<string> labels = new List<string>();
+			List<string> labels = null;
 
 			try
 			{
@@ -206,14 +206,10 @@ namespace LogMon
 				var response = new WebClient().DownloadString(php);
 				//var data = new WebClient().DownloadData(php);
 
-				var dict = XDocument.Parse(response.Trim()).Root
+                labels = XDocument.Parse(response.Trim()).Root
 						  .Elements()
-						  .ToDictionary(e => e.Name.LocalName, e => (string)e);
+                          .Select(e => e.Value).ToList();
 
-				foreach (var v in dict)
-				{
-					labels.Add(v.Value);
-				}
 
 				return labels;
 			}

@@ -27,7 +27,6 @@ namespace LogMon
 			{
 				ChatLabels = new List<string>() { "Corp", "Alliance" };
 			}
-			//ChatPoster.WebAddress = new Uri(@"https://imperialintel.com/watcher/reportIntel.php");
 			ChatPoster.WebAddress = new Uri(@"https://map.insidiousempire.net/watcher/reportIntel.php");
 
 			foreach (string s in ChatLabels)
