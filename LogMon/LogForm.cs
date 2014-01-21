@@ -34,9 +34,11 @@ namespace LogMon
 			ChatQueue.StartQueueThreads();
 			ChatQueue.MessageRead += watch_MessageRead;
 			ChatPoster.MessagePosted += watch_MessageRead;
+
 		}
 		LogWatcher m_watcher;
 		List<string> ChatLabels; 
+
 		private void LogForm_Load(object sender, EventArgs e)
 		{
 			//need to get chat channel list from server to initialize watcher correctly
@@ -88,9 +90,7 @@ namespace LogMon
 		private void LogForm_Shown(object sender, EventArgs e)
 		{
 			//hide the form when it first starts up, causes a flicker but oh fucking well.
-#if !DEBUG
-			Hide();
-#endif
+            Hide();
 		}
 
 		private void notifyIcon1_DoubleClick(object sender, EventArgs e)

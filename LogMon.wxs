@@ -33,6 +33,10 @@
 		<ComponentGroupRef Id="LogMonFiles" />
 	</ComponentGroup>
 
+	<ComponentGroup Id="Autorun">
+		<ComponentRef Id="Autostart.LogMon" />
+	</ComponentGroup>
+	
     <Feature Id="Complete" Level="1" Title="LogMon" Description="Intel channel monitoring program for the insidious empire intel map"
              ConfigurableDirectory="INSTALLDIR" Display="expand">
 		<!--<ComponentRef Id="ProgramMenuDir" />-->
@@ -40,6 +44,9 @@
 			<ComponentGroupRef Id="LogMon" />
 		</Feature>
 
+		<Feature Id="Autorun" Level="2" Title="Autorun" Description="Start Logmon when windows stats">
+			<ComponentGroupRef Id="Autorun" />
+		</Feature>
 		<!--
 		<?if $(var.includeDocco)=true ?>
 		<?elseif $(var.includeDocco)=false ?>

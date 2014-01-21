@@ -16,6 +16,17 @@ xmlns:util="http://schemas.microsoft.com/wix/UtilExtension">
 			<Component Id="Config.log4net" Guid="{E27B15A5-58C6-518D-491F-71AC9133A838}">
 				<File Id="log4net.config" Name="log4net.config" Source="log4net.config" Vital="yes" KeyPath="yes" />
 			</Component>-->
+			
+			<!-- Auto-start via Registry -->
+			<Component Id="Autostart.LogMon" Guid="FC45F8ED-36CF-488D-4D11-82845A9738AE">
+			<RegistryValue Id="LogMon.rst" Root="HKMU" Action="write"
+				Key="Software\Microsoft\Windows\CurrentVersion\Run"
+				Name="LogMon"
+				Value="[INSTALLDIR]LogMon.exe"
+				Type="string" />
+			</Component>
+
+			
 		</DirectoryRef>
 	
 		<DirectoryRef Id="ProgramMenuDir">
@@ -33,6 +44,8 @@ xmlns:util="http://schemas.microsoft.com/wix/UtilExtension">
 		  </Component>
 		</DirectoryRef>
 
+		
+		
 		
 		<ComponentGroup Id="LogMonFiles">
 			<ComponentRef Id="Exe.LogMon" />
