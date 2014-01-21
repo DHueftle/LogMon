@@ -2,11 +2,12 @@
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" 
 xmlns:util="http://schemas.microsoft.com/wix/UtilExtension">
 	<Fragment Id="Components">
-
+		<Icon Id="LogMon.ico" SourceFile="LogMon.exe" />
 		<DirectoryRef Id="INSTALLDIR">
 			<Component Id="Exe.LogMon" Guid="{577ABE57-A473-C5A2-41E7-AD4A8BF39C32}">
 				<File Id="LogMon.exe" Name="LogMon.exe" Source="LogMon.exe" Vital="yes" KeyPath="yes">
-					  <Shortcut Id="startmenuLogmonExe" Directory="ProgramMenuDir" Name="LogMon" WorkingDirectory="INSTALLDIR" Advertise="yes"></Shortcut>
+					  <Shortcut Id="startmenuLogmonExe" Directory="ProgramMenuDir" Name="LogMon" WorkingDirectory="INSTALLDIR" Advertise="yes"
+						Icon="LogMon.ico" ></Shortcut>
 				</File>
 			</Component>
 			<Component Id="Config.LogMon" Guid="{A1984DB6-0ACC-0098-40D7-949B2BC72310}">

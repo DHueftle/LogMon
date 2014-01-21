@@ -62,6 +62,7 @@
 
     <UIRef Id="WixUI_Mondo" />
 	
+	<Property Id="ARPPRODUCTICON" Value="LogMon.ico" />
 	
 	<WixVariable Id="WixUIBannerBmp" Value="InstallerResources\UiBanner.bmp" />
 	<WixVariable Id="WixUIDialogBmp" Value="InstallerResources\OpeningUiBackground.bmp" />
