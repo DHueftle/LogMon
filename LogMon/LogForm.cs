@@ -21,13 +21,12 @@ namespace LogMon
 			this.Resize += LogForm_Resize;
 			try
 			{
-				ChatLabels = ChatPoster.ReadLabels(@"https://map.insidiousempire.net/watcher/channelList.php");
+				ChatLabels = ChatPoster.ReadLabels();
 			}
 			catch(Exception e)
 			{
 				ChatLabels = new List<string>() { "Corp", "Alliance" };
 			}
-			ChatPoster.WebAddress = new Uri(@"https://map.insidiousempire.net/watcher/reportIntel.php");
 
 			foreach (string s in ChatLabels)
 				watch_MessageRead(null, s);
@@ -42,7 +41,7 @@ namespace LogMon
 		private void LogForm_Load(object sender, EventArgs e)
 		{
 			//need to get chat channel list from server to initialize watcher correctly
-            m_watcher = new LogWatcher(@"%USERPROFILE%\documents\eve\logs\Chatlogs", "*.txt", ChatLabels.ToArray());
+            m_watcher = new LogWatcher(new Properties.Settings().LogFolder, "*.txt", ChatLabels.ToArray());
 #if DEBUG
 			//m_watcher = new LogWatcher(@"C:\Users\Mikker\Documents\GitHub\Warps\Warps\bin\Debug\Logs", "*.log");
 			//m_watcher = new LogWatcher(@"C:\Users\Mikker\Documents\EVE\logs\Chatlogs", "*.txt", ChatLabels.ToArray());

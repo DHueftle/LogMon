@@ -14,14 +14,7 @@ namespace LogMon
 {
 	public static class ChatPoster
 	{
-		static Uri m_webAddress;
 		public static event EventHandler<string> MessagePosted; 
-
-		public static Uri WebAddress
-		{
-			get { return ChatPoster.m_webAddress; }
-			set { ChatPoster.m_webAddress = value; }
-		}
 
 		public static void PostMessage(string message)
 		{
@@ -37,7 +30,7 @@ namespace LogMon
 	//	static void PostParsed(byte[] data)
 		static void PostParsed(NameValueCollection data)
 		{
-			if (WebAddress == null || data == null)
+			if (data == null)
 				return;
 
 			var sslFailureCallback = new RemoteCertificateValidationCallback(delegate { return true; });
@@ -48,7 +41,8 @@ namespace LogMon
 				{
 					ServicePointManager.ServerCertificateValidationCallback += sslFailureCallback;
 					//wb.UploadValuesCompleted += wb_UploadValuesCompleted;
-					string response = Encoding.UTF8.GetString(wb.UploadValues(WebAddress, "POST", data));
+                    var url = new Properties.Settings().ReportIntelUrl;
+					string response = Encoding.UTF8.GetString(wb.UploadValues(url, "POST", data));
 					//if (MessagePosted != null)
 						//MessagePosted(wb, response);
 
@@ -193,8 +187,13 @@ namespace LogMon
 
 		//}
 
-		internal static List<string> ReadLabels(string php)
+        /// <summary>
+        /// Gets a list of channel names to watch
+        /// </summary>
+        /// <returns>A list of the channels to watch</returns>
+		internal static List<string> ReadLabels()
 		{
+            var url = new Properties.Settings().ChannelListUrl;
 			var sslFailureCallback = new RemoteCertificateValidationCallback(delegate { return true; });
 			List<string> labels = null;
 
@@ -203,7 +202,7 @@ namespace LogMon
 				ServicePointManager.ServerCertificateValidationCallback += sslFailureCallback;
 
 
-				var response = new WebClient().DownloadString(php);
+				var response = new WebClient().DownloadString(url);
 				//var data = new WebClient().DownloadData(php);
 
                 labels = XDocument.Parse(response.Trim()).Root
@@ -221,11 +220,8 @@ namespace LogMon
 			}
 			finally
 			{
-
 				ServicePointManager.ServerCertificateValidationCallback -= sslFailureCallback;
-
 			}
-
 
 			return labels;
 		}
