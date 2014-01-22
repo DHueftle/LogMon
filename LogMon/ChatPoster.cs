@@ -22,6 +22,7 @@ namespace LogMon
 			{
 				NameValueCollection data = ParseMessage(message);
 				//byte[] data = ParseMessage(message);
+                data["InstanceId"] = Program.InstanceId.ToString();
 				PostParsed(data);
 			}
 			catch {  }//do nothing, i dont care if it fails
