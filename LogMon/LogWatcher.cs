@@ -13,8 +13,7 @@ namespace LogMon
     {
         public LogWatcher(string dir, string filter, params string[] chatLabels)
         {
-            if (chatLabels.Length > 0)
-                m_chatLabels = new List<string>(chatLabels);
+            m_chatLabels = new List<string>(chatLabels);
 
             SetWatchDir(dir, filter);
         }

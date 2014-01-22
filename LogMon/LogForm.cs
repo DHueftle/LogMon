@@ -23,9 +23,9 @@ namespace LogMon
 			{
 				ChatLabels = ChatPoster.ReadLabels();
 			}
-			catch(Exception e)
+			catch(Exception ex)
 			{
-				ChatLabels = new List<string>() { "Corp", "Alliance" };
+				ChatLabels = new List<string>();
 			}
 
 			foreach (string s in ChatLabels)

@@ -196,7 +196,7 @@ namespace LogMon
 		{
             var url = new Properties.Settings().ChannelListUrl;
 			var sslFailureCallback = new RemoteCertificateValidationCallback(delegate { return true; });
-			List<string> labels = null;
+			List<string> labels = new List<string>();
 
 			try
 			{
@@ -213,11 +213,11 @@ namespace LogMon
 
 				return labels;
 			}
-			catch (Exception err)
+			catch (Exception ex)
 			{
 				if (MessagePosted != null)
-					MessagePosted(null, err.Message);
-
+					MessagePosted(null, ex.Message);
+                throw ex;
 			}
 			finally
 			{
