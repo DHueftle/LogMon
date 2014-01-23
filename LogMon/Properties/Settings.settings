@@ -1,7 +1,15 @@
 ﻿<?xml version='1.0' encoding='utf-8'?>
-<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)">
-  <Profiles>
-    <Profile Name="(Default)" />
-  </Profiles>
-  <Settings />
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="LogMon.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="ChannelListUrl" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">https://map.insidiousempire.net/watcher/channelList.php</Value>
+    </Setting>
+    <Setting Name="ReportIntelUrl" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">https://map.insidiousempire.net/watcher/reportIntel.php</Value>
+    </Setting>
+    <Setting Name="LogFolder" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">%USERPROFILE%\documents\eve\logs\Chatlogs</Value>
+    </Setting>
+  </Settings>
 </SettingsFile>

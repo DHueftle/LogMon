@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi"
+	xmlns:util="http://schemas.microsoft.com/wix/UtilExtension">
+  <Product Name="LogMon" Id="*" Language="1033"
+           Manufacturer="Insidious Empire" Version="$(var.ProductVersion)"
+           UpgradeCode="{2B199480-E0CF-BDB7-44CA-EEACE2FD145B}">
+
+
+    <Package Id="*" Keywords="Libraries" Description="Log monitoring program for the Insidious Empire intel map" Compressed="yes" InstallPrivileges="elevated"
+             InstallScope="perMachine" />
+			 
+	<Upgrade Id='{2B199480-E0CF-BDB7-44CA-EEACE2FD145B}'>
+	<UpgradeVersion OnlyDetect='no' Property='PREVIOUSFOUND'
+		Minimum='0.0.1' IncludeMinimum='yes'
+		Maximum='$(var.ProductVersion)' IncludeMaximum='no' />
+	</Upgrade>  
+		   			 
+    <PropertyRef Id="NETFRAMEWORK45" />
+    <Property Id="MSIUSEREALADMINDETECTION" Value="1" />
+
+    <Condition Message="This setup requires the .NET Framework 4.5 installed.">
+      <![CDATA[Installed OR NETFRAMEWORK45]]>
+    </Condition>
+
+    <Media Id="1" Cabinet="LogMon.cab" EmbedCab="yes"></Media>
+
+    <!--<CustomAction Id="AddUrlReservation" Directory="INSTALLDIR" Execute="deferred"
+                  ExeCommand="netsh http add urlacl url=http://+:8050/RPC/ user=\Everyone" Return="ignore" Impersonate="no" />-->
+
+
+	<ComponentGroup Id="LogMon">
+		<ComponentGroupRef Id="LogMonFiles" />
+	</ComponentGroup>
+
+	<ComponentGroup Id="Autorun">
+		<ComponentRef Id="Autostart.LogMon" />
+	</ComponentGroup>
+	
+    <Feature Id="Complete" Level="1" Title="LogMon" Description="Intel channel monitoring program for the insidious empire intel map"
+             ConfigurableDirectory="INSTALLDIR" Display="expand">
+		<!--<ComponentRef Id="ProgramMenuDir" />-->
+		<Feature Id="LogMon" Level="1" Title="LogMon" Description="Core logging program">
+			<ComponentGroupRef Id="LogMon" />
+		</Feature>
+
+		<Feature Id="Autorun" Level="2" Title="Autorun" Description="Start Logmon when windows stats">
+			<ComponentGroupRef Id="Autorun" />
+		</Feature>
+		<!--
+		<?if $(var.includeDocco)=true ?>
+		<?elseif $(var.includeDocco)=false ?>
+		<?endif?>
+		-->
+    </Feature>
+
+    <InstallExecuteSequence>
+      <!--<Custom Action="AddUrlReservation" After="InstallFiles" />-->
+	  
+		<RemoveExistingProducts Before="InstallInitialize" />
+    </InstallExecuteSequence>
+
+    <UIRef Id="WixUI_Mondo" />
+	
+	<Property Id="ARPPRODUCTICON" Value="LogMon.ico" />
+	
+	<WixVariable Id="WixUIBannerBmp" Value="InstallerResources\UiBanner.bmp" />
+	<WixVariable Id="WixUIDialogBmp" Value="InstallerResources\OpeningUiBackground.bmp" />
+  </Product>
+</Wix>
